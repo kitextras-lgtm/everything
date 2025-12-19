@@ -132,22 +132,22 @@ export function LoginPage() {
         throw new Error(data.message || 'Invalid code');
       }
 
-      if (data.hasProfile && data.userType) {
-        switch (data.userType) {
-          case 'artist':
-            navigate('/dashboard/artist');
-            break;
-          case 'creator':
-            navigate('/dashboard/creator');
-            break;
-          case 'business':
-            navigate('/dashboard/business');
-            break;
-          default:
-            navigate('/tell-us-about-yourself');
-        }
-      } else {
-        navigate('/tell-us-about-yourself');
+      if (!data.hasProfile || !data.userType) {
+        throw new Error('No account found. Please sign up first.');
+      }
+
+      switch (data.userType) {
+        case 'artist':
+          navigate('/dashboard/artist');
+          break;
+        case 'creator':
+          navigate('/dashboard/creator');
+          break;
+        case 'business':
+          navigate('/dashboard/business');
+          break;
+        default:
+          throw new Error('Invalid account type. Please contact support.');
       }
     } catch (err: any) {
       setError(err.message || 'Invalid verification code');
