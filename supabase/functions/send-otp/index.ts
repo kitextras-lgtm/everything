@@ -45,7 +45,7 @@ Deno.serve(async (req: Request) => {
     if (isSignup) {
       if (existingUser) {
         return new Response(
-          JSON.stringify({ success: false, message: 'User is already registered' }),
+          JSON.stringify({ success: false, message: 'This email is already registered. Please log in instead.' }),
           {
             status: 400,
             headers: {
