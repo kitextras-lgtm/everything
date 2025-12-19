@@ -36,7 +36,6 @@ Deno.serve(async (req: Request) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // Fetch the most recent unverified OTP for this email
     const { data: otpRecord, error: fetchError } = await supabaseClient
       .from('otp_codes')
       .select('*')
@@ -64,7 +63,6 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Check if OTP has expired
     const expiresAt = new Date(otpRecord.expires_at);
     const now = new Date();
     
@@ -81,7 +79,6 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Check if too many attempts
     if (otpRecord.attempts >= 3) {
       return new Response(
         JSON.stringify({ success: false, message: 'Too many attempts' }),
@@ -95,9 +92,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Verify the code
     if (otpRecord.code !== code) {
-      // Increment attempts
       await supabaseClient
         .from('otp_codes')
         .update({ attempts: otpRecord.attempts + 1 })
@@ -115,13 +110,11 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Mark OTP as verified
     await supabaseClient
       .from('otp_codes')
       .update({ verified: true })
       .eq('id', otpRecord.id);
 
-    // Create or find user in users table
     const { data: existingUser } = await supabaseClient
       .from('users')
       .select('*')
@@ -147,7 +140,6 @@ Deno.serve(async (req: Request) => {
       userId = existingUser.id;
     }
 
-    // Check if user has a profile
     const { data: userProfile } = await supabaseClient
       .from('user_profiles')
       .select('user_type')

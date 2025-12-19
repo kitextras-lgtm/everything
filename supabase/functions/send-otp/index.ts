@@ -36,7 +36,6 @@ Deno.serve(async (req: Request) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // Check if user already exists (for signup only)
     if (isSignup) {
       const { data: existingUser } = await supabaseClient
         .from('users')
@@ -58,21 +57,17 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // Generate 6-digit OTP code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     
-    // Set expiration to 30 minutes from now
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + 30);
 
-    // Invalidate any existing OTP codes for this email
     await supabaseClient
       .from('otp_codes')
       .update({ verified: true })
       .eq('email', email)
       .eq('verified', false);
 
-    // Insert new OTP code
     const { error: insertError } = await supabaseClient
       .from('otp_codes')
       .insert({
@@ -88,7 +83,6 @@ Deno.serve(async (req: Request) => {
       throw insertError;
     }
 
-    // Send email using Resend
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
     let emailSent = false;
     let emailError = null;
