@@ -16,7 +16,7 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const { email, isSignup } = await req.json();
+    const { email, isSignup, isLogin } = await req.json();
 
     if (!email) {
       return new Response(
@@ -36,16 +36,50 @@ Deno.serve(async (req: Request) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    if (isSignup) {
-      const { data: existingUser } = await supabaseClient
-        .from('users')
-        .select('email')
-        .eq('email', email)
-        .maybeSingle();
+    const { data: existingUser } = await supabaseClient
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .maybeSingle();
 
+    if (isSignup) {
       if (existingUser) {
         return new Response(
           JSON.stringify({ success: false, message: 'User is already registered' }),
+          {
+            status: 400,
+            headers: {
+              ...corsHeaders,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      }
+    }
+
+    if (isLogin) {
+      if (!existingUser) {
+        return new Response(
+          JSON.stringify({ success: false, message: 'No account found. Please sign up first.' }),
+          {
+            status: 400,
+            headers: {
+              ...corsHeaders,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      }
+
+      const { data: userProfile } = await supabaseClient
+        .from('user_profiles')
+        .select('user_type')
+        .eq('id', existingUser.id)
+        .maybeSingle();
+
+      if (!userProfile || !userProfile.user_type) {
+        return new Response(
+          JSON.stringify({ success: false, message: 'No account found. Please sign up first.' }),
           {
             status: 400,
             headers: {

@@ -69,7 +69,7 @@ export function LoginPage() {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email, isLogin: true }),
         });
 
         const data = await response.json();
@@ -132,22 +132,22 @@ export function LoginPage() {
         throw new Error(data.message || 'Invalid code');
       }
 
-      if (!data.hasProfile || !data.userType) {
-        throw new Error('No account found. Please sign up first.');
-      }
-
-      switch (data.userType) {
-        case 'artist':
-          navigate('/dashboard/artist');
-          break;
-        case 'creator':
-          navigate('/dashboard/creator');
-          break;
-        case 'business':
-          navigate('/dashboard/business');
-          break;
-        default:
-          throw new Error('Invalid account type. Please contact support.');
+      if (data.hasProfile && data.userType) {
+        switch (data.userType) {
+          case 'artist':
+            navigate('/dashboard/artist');
+            break;
+          case 'creator':
+            navigate('/dashboard/creator');
+            break;
+          case 'business':
+            navigate('/dashboard/business');
+            break;
+          default:
+            navigate('/dashboard/artist');
+        }
+      } else {
+        navigate('/dashboard/artist');
       }
     } catch (err: any) {
       setError(err.message || 'Invalid verification code');
@@ -169,7 +169,7 @@ export function LoginPage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, isLogin: true }),
       });
 
       const data = await response.json();
