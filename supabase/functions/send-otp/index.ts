@@ -92,7 +92,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    
+
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + 30);
 
@@ -118,13 +118,15 @@ Deno.serve(async (req: Request) => {
     }
 
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
+    const FROM_EMAIL = Deno.env.get('FROM_EMAIL') || 'delivered@resend.dev';
+
     let emailSent = false;
     let emailError = null;
 
     if (RESEND_API_KEY) {
       try {
         const emailPayload = {
-          from: 'Elevate <onboarding@resend.dev>',
+          from: FROM_EMAIL,
           to: [email],
           subject: 'Your Elevate Verification Code',
           html: `
@@ -141,7 +143,8 @@ Deno.serve(async (req: Request) => {
         };
 
         console.log('Attempting to send email to:', email);
-        console.log('Using from address:', emailPayload.from);
+        console.log('Using from address:', FROM_EMAIL);
+        console.log('API Key configured:', !!RESEND_API_KEY);
 
         const res = await fetch('https://api.resend.com/emails', {
           method: 'POST',
@@ -170,6 +173,7 @@ Deno.serve(async (req: Request) => {
       }
     } else {
       console.log('RESEND_API_KEY not configured. OTP code:', code);
+      emailError = 'Email service not configured';
     }
 
     console.log('OTP generated for', email, ':', code);
@@ -179,7 +183,7 @@ Deno.serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         success: true,
-        devCode: !RESEND_API_KEY || !emailSent ? code : undefined,
+        devCode: !emailSent ? code : undefined,
         emailSent: emailSent,
         emailError: emailError
       }),
