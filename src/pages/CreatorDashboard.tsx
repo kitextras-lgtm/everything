@@ -1,21 +1,63 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Video, Instagram, Music2, ArrowUpRight, LogOut } from 'lucide-react';
+import { Video, Instagram, Music2, ArrowUpRight, LogOut, Camera, MapPin, Globe } from 'lucide-react';
 import { BetaBadge } from '../components/BetaBadge';
 import { SocialLinksForm } from '../components/SocialLinksForm';
 import { ReferralSection } from '../components/ReferralSection';
 import { DoorTransition } from '../components/DoorTransition';
+import { supabase } from '../lib/supabase';
+
+type SettingsSection = 'personal' | 'accounts' | 'payout' | 'notifications' | 'close';
+
+const COUNTRIES = ['United States of America', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Spain', 'Italy', 'Japan', 'South Korea', 'Brazil', 'Mexico', 'India', 'China', 'Netherlands', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Switzerland', 'Austria', 'Belgium', 'Portugal', 'Poland', 'Greece', 'Ireland', 'New Zealand', 'Singapore', 'South Africa', 'Argentina', 'Chile', 'Colombia', 'Peru', 'Thailand', 'Vietnam', 'Malaysia', 'Indonesia', 'Philippines', 'Turkey', 'United Arab Emirates', 'Saudi Arabia', 'Israel', 'Egypt', 'Nigeria', 'Kenya', 'Other'];
+
+const LANGUAGES = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese', 'Dutch', 'Russian', 'Chinese (Mandarin)', 'Japanese', 'Korean', 'Arabic', 'Hindi', 'Bengali', 'Turkish', 'Vietnamese', 'Thai', 'Indonesian', 'Malay', 'Tagalog', 'Swedish', 'Norwegian', 'Danish', 'Finnish', 'Polish', 'Greek', 'Hebrew', 'Swahili', 'Other'];
 
 export function CreatorDashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [settingsSection, setSettingsSection] = useState<SettingsSection>('personal');
+  const [isEditing, setIsEditing] = useState(false);
+  const [userProfile, setUserProfile] = useState<any>(null);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    location: '',
+    language: '',
+    email: ''
+  });
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     localStorage.setItem('currentDashboard', '/dashboard/creator');
+    fetchUserProfile();
   }, []);
+
+  const fetchUserProfile = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profile) {
+        setUserProfile(profile);
+        setFormData({
+          firstName: profile.first_name || '',
+          lastName: profile.last_name || '',
+          username: profile.username || '',
+          location: profile.location || '',
+          language: profile.primary_language || '',
+          email: user.email || ''
+        });
+      }
+    }
+  };
 
   const handleLogout = () => {
     localStorage.clear();
@@ -142,7 +184,10 @@ export function CreatorDashboard() {
                   </div>
 
                   <button
-                    onClick={() => navigate('/settings')}
+                    onClick={() => {
+                      setActiveSection('settings');
+                      setIsDropdownOpen(false);
+                    }}
                     className="w-full py-3 px-4 rounded-xl text-sm font-bold mb-3 transition-all duration-200 hover:brightness-110"
                     style={{ backgroundColor: '#111111', color: '#F8FAFC' }}
                   >
@@ -372,6 +417,328 @@ export function CreatorDashboard() {
           <ReferralSection />
         </section>
           </>
+        )}
+
+        {activeSection === 'settings' && (
+          <div className="flex">
+            <aside className="w-80 fixed left-0 h-[calc(100vh-4rem)] border-r" style={{ borderColor: '#1a1a1a', backgroundColor: '#111111' }}>
+              <div className="p-8">
+                <div className="mb-8">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10">
+                      <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold" style={{ color: '#F8FAFC' }}>
+                        {formData.firstName} {formData.lastName}
+                      </h2>
+                      <p className="text-sm" style={{ color: '#64748B' }}>{formData.email}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <nav className="space-y-2">
+                  <button
+                    onClick={() => setSettingsSection('personal')}
+                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      settingsSection === 'personal' ? 'brightness-110' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: settingsSection === 'personal' ? '#1a1a1e' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Personal info
+                  </button>
+                  <button
+                    onClick={() => setSettingsSection('accounts')}
+                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      settingsSection === 'accounts' ? 'brightness-110' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: settingsSection === 'accounts' ? '#1a1a1e' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Connected accounts
+                  </button>
+                  <button
+                    onClick={() => setSettingsSection('payout')}
+                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      settingsSection === 'payout' ? 'brightness-110' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: settingsSection === 'payout' ? '#1a1a1e' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Payout methods
+                  </button>
+                  <button
+                    onClick={() => setSettingsSection('notifications')}
+                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      settingsSection === 'notifications' ? 'brightness-110' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: settingsSection === 'notifications' ? '#1a1a1e' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Notifications
+                  </button>
+                  <button
+                    onClick={() => setSettingsSection('close')}
+                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      settingsSection === 'close' ? 'brightness-110' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: settingsSection === 'close' ? '#1a1a1e' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Close account
+                  </button>
+                </nav>
+              </div>
+            </aside>
+
+            <div className="ml-80 flex-1">
+              {settingsSection === 'personal' && (
+                <div className="max-w-3xl">
+                  <h2 className="text-2xl font-bold mb-8" style={{ color: '#F8FAFC' }}>Personal info</h2>
+
+                  <div className="space-y-8">
+                    <div>
+                      <label className="block text-sm mb-3" style={{ color: '#94A3B8' }}>Profile picture</label>
+                      <div className="flex items-center gap-4">
+                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10">
+                          <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
+                        <button
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110"
+                          style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
+                        >
+                          <Camera className="w-4 h-4" />
+                          Replace picture
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>First name</label>
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="text"
+                            value={formData.firstName}
+                            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                            disabled={!isEditing}
+                            className="flex-1 h-11 px-4 rounded-lg text-sm focus:outline-none transition-all"
+                            style={{
+                              color: '#F8FAFC',
+                              background: '#1a1a1e',
+                              border: '1px solid rgba(75, 85, 99, 0.3)',
+                            }}
+                          />
+                          {!isEditing && (
+                            <button
+                              onClick={() => setIsEditing(true)}
+                              className="p-2 hover:brightness-110 transition-all"
+                              style={{ color: '#64748B' }}
+                            >
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                              </svg>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Last name</label>
+                        <input
+                          type="text"
+                          value={formData.lastName}
+                          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                          disabled={!isEditing}
+                          className="w-full h-11 px-4 rounded-lg text-sm focus:outline-none transition-all"
+                          style={{
+                            color: '#F8FAFC',
+                            background: '#1a1a1e',
+                            border: '1px solid rgba(75, 85, 99, 0.3)',
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Username</label>
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 flex items-center h-11 px-4 rounded-lg" style={{ background: '#1a1a1e', border: '1px solid rgba(75, 85, 99, 0.3)' }}>
+                          <span style={{ color: '#64748B' }}>@</span>
+                          <input
+                            type="text"
+                            value={formData.username}
+                            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                            disabled={!isEditing}
+                            className="flex-1 bg-transparent text-sm focus:outline-none ml-1"
+                            style={{ color: '#F8FAFC' }}
+                          />
+                        </div>
+                        {!isEditing && (
+                          <button
+                            onClick={() => setIsEditing(true)}
+                            className="p-2 hover:brightness-110 transition-all"
+                            style={{ color: '#64748B' }}
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Location</label>
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 flex items-center h-11 px-4 rounded-lg" style={{ background: '#1a1a1e', border: '1px solid rgba(75, 85, 99, 0.3)' }}>
+                          <MapPin className="w-4 h-4 mr-2" style={{ color: '#64748B' }} />
+                          <select
+                            value={formData.location}
+                            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                            disabled={!isEditing}
+                            className="flex-1 bg-transparent text-sm focus:outline-none"
+                            style={{ color: '#F8FAFC' }}
+                          >
+                            {COUNTRIES.map(country => (
+                              <option key={country} value={country}>{country}</option>
+                            ))}
+                          </select>
+                        </div>
+                        {!isEditing && (
+                          <button
+                            onClick={() => setIsEditing(true)}
+                            className="p-2 hover:brightness-110 transition-all"
+                            style={{ color: '#64748B' }}
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Languages you post in</label>
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 flex items-center h-11 px-4 rounded-lg" style={{ background: '#1a1a1e', border: '1px solid rgba(75, 85, 99, 0.3)' }}>
+                          <Globe className="w-4 h-4 mr-2" style={{ color: '#64748B' }} />
+                          <select
+                            value={formData.language}
+                            onChange={(e) => setFormData({ ...formData, language: e.target.value })}
+                            disabled={!isEditing}
+                            className="flex-1 bg-transparent text-sm focus:outline-none"
+                            style={{ color: '#F8FAFC' }}
+                          >
+                            {LANGUAGES.map(language => (
+                              <option key={language} value={language}>{language}</option>
+                            ))}
+                          </select>
+                        </div>
+                        {!isEditing && (
+                          <button
+                            onClick={() => setIsEditing(true)}
+                            className="p-2 hover:brightness-110 transition-all"
+                            style={{ color: '#64748B' }}
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Email</label>
+                      <input
+                        type="email"
+                        value={formData.email}
+                        disabled
+                        className="w-full h-11 px-4 rounded-lg text-sm focus:outline-none opacity-60"
+                        style={{
+                          color: '#F8FAFC',
+                          background: '#1a1a1e',
+                          border: '1px solid rgba(75, 85, 99, 0.3)',
+                        }}
+                      />
+                    </div>
+
+                    {isEditing && (
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => setIsEditing(false)}
+                          className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:brightness-110"
+                          style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={() => setIsEditing(false)}
+                          className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:brightness-110"
+                          style={{ backgroundColor: '#E8E8E8', color: '#000000' }}
+                        >
+                          Save changes
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {settingsSection === 'accounts' && (
+                <div className="flex items-center justify-center min-h-[400px]">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Connected accounts</h3>
+                    <p className="text-sm" style={{ color: '#94A3B8' }}>Manage your social media connections</p>
+                  </div>
+                </div>
+              )}
+
+              {settingsSection === 'payout' && (
+                <div className="flex items-center justify-center min-h-[400px]">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Payout methods</h3>
+                    <p className="text-sm" style={{ color: '#94A3B8' }}>Add your payout information</p>
+                  </div>
+                </div>
+              )}
+
+              {settingsSection === 'notifications' && (
+                <div className="flex items-center justify-center min-h-[400px]">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Notifications</h3>
+                    <p className="text-sm" style={{ color: '#94A3B8' }}>Manage your notification preferences</p>
+                  </div>
+                </div>
+              )}
+
+              {settingsSection === 'close' && (
+                <div className="flex items-center justify-center min-h-[400px]">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Close account</h3>
+                    <p className="text-sm" style={{ color: '#94A3B8' }}>Delete your account and data</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         )}
       </main>
     </div>

@@ -12,7 +12,6 @@ const ArtistDashboard = lazy(() => import('./pages/ArtistDashboard').then(module
 const CreatorDashboard = lazy(() => import('./pages/CreatorDashboard').then(module => ({ default: module.CreatorDashboard })));
 const BusinessDashboard = lazy(() => import('./pages/BusinessDashboard').then(module => ({ default: module.BusinessDashboard })));
 const MobileMenuPage = lazy(() => import('./pages/MobileMenuPage').then(module => ({ default: module.MobileMenuPage })));
-const SettingsPage = lazy(() => import('./pages/SettingsPage').then(module => ({ default: module.SettingsPage })));
 
 function App() {
   return (
@@ -30,7 +29,6 @@ function App() {
           <Route path="/dashboard/artist" element={<ArtistDashboard />} />
           <Route path="/dashboard/creator" element={<CreatorDashboard />} />
           <Route path="/dashboard/business" element={<BusinessDashboard />} />
-          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </Suspense>
     </Router>
