@@ -506,3 +506,62 @@ spline-viewer div[style*="position: fixed"],
 .businesses-icon:hover .documents {
   opacity: 1;
 }
+
+@media (max-width: 767px) {
+  .home-icon {
+    min-width: 56px;
+    gap: 3px;
+  }
+
+  .home-icon-wrapper {
+    width: 30px;
+    height: 30px;
+  }
+
+  .home-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .home-icon .label {
+    font-size: 11px;
+  }
+
+  .messages-icon {
+    min-width: 56px;
+    gap: 3px;
+  }
+
+  .messages-icon-wrapper {
+    width: 30px;
+    height: 30px;
+  }
+
+  .messages-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .messages-icon .label {
+    font-size: 11px;
+  }
+
+  .earnings-icon {
+    min-width: 56px;
+    gap: 3px;
+  }
+
+  .earnings-icon .icon-container {
+    width: 30px;
+    height: 30px;
+  }
+
+  .earnings-icon .icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .earnings-icon .label {
+    font-size: 11px;
+  }
+}
