@@ -152,10 +152,6 @@ html, body {
   }
 }
 
-spline-viewer {
-  position: relative;
-}
-
 spline-viewer::part(logo),
 spline-viewer #logo,
 .spline-viewer-no-watermark::part(logo),
