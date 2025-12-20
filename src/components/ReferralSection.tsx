@@ -124,12 +124,12 @@ export function ReferralSection() {
           <h3 className="text-lg sm:text-xl font-bold" style={{ color: '#F8FAFC' }}>Your Code</h3>
         </div>
 
-        <div className="rounded-lg p-4 mb-5" style={{ backgroundColor: '#111111' }}>
-          <div className="text-center">
+        <div className="rounded-lg p-4 mb-5 min-h-[160px] flex flex-col" style={{ backgroundColor: '#111111' }}>
+          <div className="text-center flex-1 flex flex-col">
             <div className="text-xs font-medium mb-2" style={{ color: '#64748B' }}>
               YOUR REFERRAL CODE
             </div>
-            <div className="text-2xl sm:text-3xl font-bold tracking-wider mb-3" style={{ color: '#F8FAFC' }}>
+            <div className="text-2xl sm:text-3xl font-bold tracking-wider mb-3 flex-1 flex items-center justify-center" style={{ color: '#F8FAFC' }}>
               {referralData?.code || 'LOADING...'}
             </div>
             <button
@@ -158,13 +158,13 @@ export function ReferralSection() {
             Your Stats
           </div>
           <div className="space-y-2">
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+            <div className="flex items-center justify-between py-3 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
               <span className="text-sm" style={{ color: '#94A3B8' }}>Total uses</span>
               <span className="text-sm font-bold" style={{ color: '#F8FAFC' }}>
                 {referralData?.total_uses || 0}
               </span>
             </div>
-            <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+            <div className="flex items-center justify-between py-3 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
               <span className="text-sm" style={{ color: '#94A3B8' }}>Total earned</span>
               <span className="text-sm font-bold" style={{ color: '#F8FAFC' }}>
                 ${referralData?.total_earnings?.toFixed(2) || '0.00'}
@@ -192,20 +192,22 @@ export function ReferralSection() {
           </div>
         ) : (
           <>
-            <div className="rounded-lg p-4 mb-5" style={{ backgroundColor: '#111111' }}>
-              <div className="text-center">
+            <div className="rounded-lg p-4 mb-5 min-h-[160px] flex flex-col" style={{ backgroundColor: '#111111' }}>
+              <div className="text-center flex-1 flex flex-col">
                 <label className="block text-xs font-medium mb-2" style={{ color: '#64748B' }}>
                   REFERRAL CODE
                 </label>
-                <input
-                  type="text"
-                  value={inputCode}
-                  onChange={(e) => setInputCode(e.target.value.toUpperCase())}
-                  placeholder="Enter code..."
-                  maxLength={8}
-                  className="w-full px-4 py-2.5 rounded-lg text-2xl sm:text-3xl font-bold tracking-wider text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 mb-3"
-                  style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
-                />
+                <div className="flex-1 flex items-center justify-center mb-3">
+                  <input
+                    type="text"
+                    value={inputCode}
+                    onChange={(e) => setInputCode(e.target.value.toUpperCase())}
+                    placeholder="Enter code..."
+                    maxLength={8}
+                    className="w-full px-4 py-2.5 rounded-lg text-2xl sm:text-3xl font-bold tracking-wider text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20"
+                    style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
+                  />
+                </div>
                 <button
                   onClick={handleApplyCode}
                   disabled={!inputCode.trim() || applying}
@@ -215,30 +217,30 @@ export function ReferralSection() {
                   {applying ? 'Applying...' : 'Apply Code'}
                 </button>
               </div>
-
-              {message && (
-                <div
-                  className="rounded-lg p-3 text-sm text-center mt-3"
-                  style={{
-                    backgroundColor: message.type === 'success' ? '#10B98120' : '#EF444420',
-                    color: message.type === 'success' ? '#10B981' : '#EF4444',
-                  }}
-                >
-                  {message.text}
-                </div>
-              )}
             </div>
+
+            {message && (
+              <div
+                className="rounded-lg p-3 text-sm text-center mb-5"
+                style={{
+                  backgroundColor: message.type === 'success' ? '#10B98120' : '#EF444420',
+                  color: message.type === 'success' ? '#10B981' : '#EF4444',
+                }}
+              >
+                {message.text}
+              </div>
+            )}
 
             <div>
               <div className="text-sm font-semibold mb-3" style={{ color: '#F8FAFC' }}>
                 Benefits
               </div>
               <div className="space-y-2">
-                <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+                <div className="flex items-center justify-between py-3 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
                   <span className="text-sm" style={{ color: '#94A3B8' }}>10% first campaign bonus</span>
                   <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
                 </div>
-                <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+                <div className="flex items-center justify-between py-3 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
                   <span className="text-sm" style={{ color: '#94A3B8' }}>Support the community</span>
                   <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
                 </div>
