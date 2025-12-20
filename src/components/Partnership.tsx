@@ -262,7 +262,9 @@ function ServiceCard({ service, index, isVisible: parentVisible }: { service: Se
         borderRadius: '16px',
         background: 'rgba(255, 255, 255, 0.02)',
         border: '1px solid rgba(255, 255, 255, 0.06)',
-        padding: '24px'
+        padding: '24px',
+        willChange: shouldShow ? 'auto' : 'transform, opacity',
+        transform: 'translateZ(0)'
       }}
     >
       <div className="mb-auto">
