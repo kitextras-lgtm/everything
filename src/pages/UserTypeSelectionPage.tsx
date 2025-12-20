@@ -153,15 +153,27 @@ export function UserTypeSelectionPage() {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (user) {
+        const tempProfile = localStorage.getItem('tempProfile');
+        const profileData = tempProfile ? JSON.parse(tempProfile) : {};
+
         const { error: insertError } = await supabase
           .from('user_profiles')
           .insert({
             id: user.id,
-            user_type: selectedType
+            user_type: selectedType,
+            first_name: profileData.firstName || '',
+            last_name: profileData.lastName || '',
+            username: profileData.username || '',
+            profile_picture_url: profileData.profilePicture || null,
+            location: profileData.location || '',
+            primary_language: profileData.primaryLanguage || '',
+            profile_completed: true
           });
 
         if (insertError) {
           console.error('Error saving to database:', insertError);
+        } else {
+          localStorage.removeItem('tempProfile');
         }
       } else {
         localStorage.setItem('selectedUserType', selectedType);

@@ -38,26 +38,28 @@ export function ReferralSection() {
         const { data: userProfile } = await supabase
           .from('user_profiles')
           .select('username')
-          .eq('user_id', user.id)
+          .eq('id', user.id)
           .maybeSingle();
 
         const username = userProfile?.username;
 
         if (username) {
-          const { error: insertError } = await supabase
+          const { data: insertedCode, error: insertError } = await supabase
             .from('referral_codes')
             .insert({
               user_id: user.id,
               code: username.toUpperCase(),
-            });
+            })
+            .select('code, total_uses, total_earnings')
+            .single();
 
-          if (!insertError) {
-            setReferralData({
-              code: username.toUpperCase(),
-              total_uses: 0,
-              total_earnings: 0,
-            });
+          if (!insertError && insertedCode) {
+            setReferralData(insertedCode);
+          } else {
+            console.error('Error inserting referral code:', insertError);
           }
+        } else {
+          console.error('No username found for user');
         }
       }
 
@@ -137,7 +139,7 @@ export function ReferralSection() {
             </div>
             <div className="h-[60px] flex items-center justify-center mb-3">
               <div className="text-2xl sm:text-3xl font-bold tracking-wider" style={{ color: '#F8FAFC' }}>
-                {referralData?.code || 'LOADING...'}
+                {referralData?.code || 'N/A'}
               </div>
             </div>
             <button
