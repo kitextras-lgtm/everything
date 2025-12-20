@@ -12,6 +12,20 @@
       @supports (font-variation-settings: normal) {
         * { font-variation-settings: normal; }
       }
+
+      /* Fix Windows DPI scaling issue */
+      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        body {
+          zoom: 0.9;
+        }
+      }
+
+      /* For modern Windows browsers */
+      @supports (-ms-ime-align: auto) {
+        body {
+          zoom: 0.9;
+        }
+      }
     </style>
     <link rel="preconnect" href="https://prod.spline.design" crossorigin>
     <link rel="dns-prefetch" href="https://prod.spline.design">
@@ -21,6 +35,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Fix Windows scaling issue
+      if (navigator.userAgent.indexOf('Windows') !== -1) {
+        document.body.style.zoom = '0.9';
+      }
+    </script>
     <script>
       // Lazy load Spline viewer after initial render
       if ('requestIdleCallback' in window) {
