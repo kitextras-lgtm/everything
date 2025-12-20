@@ -13,35 +13,8 @@ export function HomePage() {
     const currentDashboard = localStorage.getItem('currentDashboard');
     if (currentDashboard && window.location.pathname === '/') {
       navigate(currentDashboard);
-      return;
     }
-
-    const handleSmoothScroll = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const id = target.getAttribute('href')?.slice(1);
-
-        if (id === 'top' || id === '') {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
-        } else {
-          const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
-          }
-        }
-      }
-    };
-
-    document.addEventListener('click', handleSmoothScroll);
-    return () => document.removeEventListener('click', handleSmoothScroll);
-  }, []);
+  }, [navigate]);
 
   return (
     <div
