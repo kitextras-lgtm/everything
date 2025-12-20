@@ -184,7 +184,7 @@ export function CreatorDashboard() {
   }, [isDropdownOpen]);
 
   const renderPersonalInfo = () => (
-    <div ref={personalRef} className="scroll-mt-6">
+    <div ref={personalRef} className="scroll-mt-6 rounded-2xl p-8 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
       <h2 className="text-2xl font-bold mb-8" style={{ color: '#F8FAFC' }}>Personal info</h2>
 
       <div className="space-y-7">
@@ -389,7 +389,7 @@ export function CreatorDashboard() {
   );
 
   const renderConnectedAccounts = () => (
-    <div ref={accountsRef} className="scroll-mt-6 pt-12">
+    <div ref={accountsRef} className="scroll-mt-6 rounded-2xl p-8 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
       <h2 className="text-2xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Connected accounts (0)</h2>
       <p className="text-sm mb-6" style={{ color: '#94A3B8' }}>
         Link the social media accounts where you post content.<br />
@@ -404,7 +404,7 @@ export function CreatorDashboard() {
   );
 
   const renderPayoutMethods = () => (
-    <div ref={payoutRef} className="scroll-mt-6 pt-12">
+    <div ref={payoutRef} className="scroll-mt-6 rounded-2xl p-8 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
       <h2 className="text-2xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Payout methods</h2>
       <p className="text-sm mb-3" style={{ color: '#94A3B8' }}>
         Link an account to withdraw funds. Depending on your location, you can connect either a <span className="font-semibold" style={{ color: '#F8FAFC' }}>Stripe</span> or <span className="font-semibold" style={{ color: '#F8FAFC' }}>PayPal</span> account.
@@ -421,7 +421,7 @@ export function CreatorDashboard() {
   );
 
   const renderNotifications = () => (
-    <div ref={notificationsRef} className="scroll-mt-6 pt-12">
+    <div ref={notificationsRef} className="scroll-mt-6 rounded-2xl p-8 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
       <h2 className="text-2xl font-bold mb-8" style={{ color: '#F8FAFC' }}>Notifications</h2>
 
       <div className="space-y-8">
@@ -754,12 +754,12 @@ export function CreatorDashboard() {
                 </div>
               </aside>
 
-              <main className="flex-1 rounded-2xl p-8 shadow-xl overflow-y-auto" style={{ backgroundColor: '#1a1a1e', maxHeight: 'calc(100vh - 12rem)' }}>
+              <div className="flex-1 space-y-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 12rem)' }}>
                 {renderPersonalInfo()}
                 {renderConnectedAccounts()}
                 {renderPayoutMethods()}
                 {renderNotifications()}
-              </main>
+              </div>
             </div>
           </div>
         )}
