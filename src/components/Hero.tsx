@@ -62,7 +62,8 @@ const SplineViewer = memo(() => {
             transform: 'scaleX(-1)',
             transformOrigin: 'center center',
             opacity: splineLoaded ? 1 : 0,
-            transition: 'opacity 1.5s ease-in-out'
+            transition: 'opacity 1.5s ease-in-out',
+            pointerEvents: 'none'
           }}
         />
       )}
