@@ -1,0 +1,264 @@
+import { useState, useEffect } from 'react';
+import { Copy, Check, Gift } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+
+interface ReferralData {
+  code: string;
+  total_uses: number;
+  total_earnings: number;
+}
+
+export function ReferralSection() {
+  const [referralData, setReferralData] = useState<ReferralData | null>(null);
+  const [inputCode, setInputCode] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [applying, setApplying] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [hasAppliedCode, setHasAppliedCode] = useState(false);
+
+  useEffect(() => {
+    loadReferralData();
+  }, []);
+
+  const loadReferralData = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: existingCode } = await supabase
+        .from('referral_codes')
+        .select('code, total_uses, total_earnings')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (existingCode) {
+        setReferralData(existingCode);
+      } else {
+        const { data: newCodeData } = await supabase.rpc('generate_referral_code');
+
+        if (newCodeData) {
+          const { error: insertError } = await supabase
+            .from('referral_codes')
+            .insert({
+              user_id: user.id,
+              code: newCodeData,
+            });
+
+          if (!insertError) {
+            setReferralData({
+              code: newCodeData,
+              total_uses: 0,
+              total_earnings: 0,
+            });
+          }
+        }
+      }
+
+      const { data: appliedCode } = await supabase
+        .from('referral_applications')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      setHasAppliedCode(!!appliedCode);
+    } catch (error) {
+      console.error('Error loading referral data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCopy = async () => {
+    if (!referralData) return;
+
+    try {
+      await navigator.clipboard.writeText(referralData.code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+    }
+  };
+
+  const handleApplyCode = async () => {
+    if (!inputCode.trim() || applying) return;
+
+    setApplying(true);
+    setMessage(null);
+
+    try {
+      const { data, error } = await supabase.rpc('apply_referral_code', {
+        p_code: inputCode.trim().toUpperCase(),
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        setMessage({ type: 'success', text: data.message });
+        setInputCode('');
+        setHasAppliedCode(true);
+      } else {
+        setMessage({ type: 'error', text: data.error });
+      }
+    } catch (error: any) {
+      setMessage({ type: 'error', text: error.message || 'Failed to apply code' });
+    } finally {
+      setApplying(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="rounded-xl sm:rounded-2xl p-6 sm:p-8" style={{ backgroundColor: '#1a1a1e' }}>
+        <div className="text-center" style={{ color: '#94A3B8' }}>Loading...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+      <div className="rounded-xl sm:rounded-2xl p-5 sm:p-7" style={{ backgroundColor: '#1a1a1e' }}>
+        <div className="flex items-center gap-2 mb-5">
+          <Gift className="w-5 h-5" style={{ color: '#64748B' }} />
+          <h3 className="text-lg sm:text-xl font-bold" style={{ color: '#F8FAFC' }}>Your Code</h3>
+        </div>
+
+        <div className="mb-5">
+          <div className="rounded-lg p-4 mb-3" style={{ backgroundColor: '#111111' }}>
+            <div className="text-center">
+              <div className="text-xs font-medium mb-2" style={{ color: '#64748B' }}>
+                YOUR REFERRAL CODE
+              </div>
+              <div className="text-2xl sm:text-3xl font-bold tracking-wider mb-3" style={{ color: '#F8FAFC' }}>
+                {referralData?.code || 'LOADING...'}
+              </div>
+              <button
+                onClick={handleCopy}
+                disabled={!referralData}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#F8FAFC', color: '#111111' }}
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>Copy Code</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="text-sm font-semibold mb-3" style={{ color: '#F8FAFC' }}>
+            Your Stats
+          </div>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+              <span className="text-sm" style={{ color: '#94A3B8' }}>Total uses</span>
+              <span className="text-sm font-bold" style={{ color: '#F8FAFC' }}>
+                {referralData?.total_uses || 0}
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+              <span className="text-sm" style={{ color: '#94A3B8' }}>Total earned</span>
+              <span className="text-sm font-bold" style={{ color: '#F8FAFC' }}>
+                ${referralData?.total_earnings?.toFixed(2) || '0.00'}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-xl sm:rounded-2xl p-5 sm:p-7" style={{ backgroundColor: '#1a1a1e' }}>
+        <div className="flex items-center gap-2 mb-5">
+          <Gift className="w-5 h-5" style={{ color: '#64748B' }} />
+          <h3 className="text-lg sm:text-xl font-bold" style={{ color: '#F8FAFC' }}>Enter a Code</h3>
+        </div>
+
+        {hasAppliedCode ? (
+          <div className="rounded-lg p-6 text-center" style={{ backgroundColor: '#111111' }}>
+            <Check className="w-12 h-12 mx-auto mb-3" style={{ color: '#10B981' }} />
+            <p className="text-base font-medium mb-1" style={{ color: '#F8FAFC' }}>
+              Code Applied!
+            </p>
+            <p className="text-sm" style={{ color: '#64748B' }}>
+              You've already applied a referral code
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="mb-5">
+              <div className="rounded-lg p-4 mb-3" style={{ backgroundColor: '#111111' }}>
+                <label className="block text-xs font-medium mb-2" style={{ color: '#64748B' }}>
+                  REFERRAL CODE
+                </label>
+                <input
+                  type="text"
+                  value={inputCode}
+                  onChange={(e) => setInputCode(e.target.value.toUpperCase())}
+                  placeholder="Enter code..."
+                  maxLength={8}
+                  className="w-full px-4 py-2.5 rounded-lg text-base font-bold tracking-wider text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 mb-3"
+                  style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
+                />
+                <button
+                  onClick={handleApplyCode}
+                  disabled={!inputCode.trim() || applying}
+                  className="w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ backgroundColor: '#F8FAFC', color: '#111111' }}
+                >
+                  {applying ? 'Applying...' : 'Apply Code'}
+                </button>
+              </div>
+
+              {message && (
+                <div
+                  className="rounded-lg p-3 text-sm text-center"
+                  style={{
+                    backgroundColor: message.type === 'success' ? '#10B98120' : '#EF444420',
+                    color: message.type === 'success' ? '#10B981' : '#EF4444',
+                  }}
+                >
+                  {message.text}
+                </div>
+              )}
+            </div>
+
+            <div>
+              <div className="text-sm font-semibold mb-3" style={{ color: '#F8FAFC' }}>
+                Benefits
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2 py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
+                  <span className="text-sm" style={{ color: '#94A3B8' }}>
+                    Get 10% bonus on your first campaign
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
+                  <span className="text-sm" style={{ color: '#94A3B8' }}>
+                    Support creators in the community
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
+                  <span className="text-sm" style={{ color: '#94A3B8' }}>
+                    Unlock exclusive features
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
