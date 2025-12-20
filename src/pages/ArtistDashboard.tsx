@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DoorTransition } from '../components/DoorTransition';
 
 export function ArtistDashboard() {
   const navigate = useNavigate();
@@ -15,7 +16,8 @@ export function ArtistDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <DoorTransition>
+      <div className="min-h-screen bg-black text-white">
       <nav className="border-b border-gray-800 bg-black/50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -100,5 +102,6 @@ export function ArtistDashboard() {
         </div>
       </main>
     </div>
+    </DoorTransition>
   );
 }
