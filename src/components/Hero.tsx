@@ -3,15 +3,28 @@ import { useNavigate } from 'react-router-dom';
 
 const SplineViewer = memo(() => {
   const [splineLoaded, setSplineLoaded] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    setSplineLoaded(true);
+    const timer = setTimeout(() => {
+      setShouldLoad(true);
+      const loadTimer = setTimeout(() => setSplineLoaded(true), 500);
+      return () => clearTimeout(loadTimer);
+    }, 100);
 
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
+  if (!shouldLoad) {
+    return null;
+  }
 
   return (
     <>
@@ -19,7 +32,7 @@ const SplineViewer = memo(() => {
         <spline-viewer
           key="mobile-spline"
           url="https://prod.spline.design/j6Vui4oX3PbVT0Bv/scene.splinecode"
-          loading="eager"
+          loading="lazy"
           style={{
             position: 'absolute',
             top: '72%',
@@ -38,7 +51,7 @@ const SplineViewer = memo(() => {
         <spline-viewer
           key="desktop-spline"
           url="https://prod.spline.design/LrLPFXR2ZuBzIAV8/scene.splinecode"
-          loading="eager"
+          loading="lazy"
           style={{
             position: 'absolute',
             top: 0,
