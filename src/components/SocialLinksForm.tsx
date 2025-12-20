@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, X, Youtube, Instagram, Music2, Twitter, Twitch, Link2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { AnimatedLinkIcon } from './AnimatedLinkIcon';
 
 interface SocialLink {
   id: string;
@@ -193,7 +194,7 @@ export function SocialLinksForm() {
       <div className="space-y-3">
         {links.length === 0 ? (
           <div className="text-center py-8 sm:py-12">
-            <Link2 className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4" style={{ color: '#64748B' }} />
+            <AnimatedLinkIcon />
             <p className="text-sm sm:text-base font-medium mb-1" style={{ color: '#F8FAFC' }}>
               No links added yet
             </p>

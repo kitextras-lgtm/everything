@@ -565,3 +565,35 @@ spline-viewer div[style*="position: fixed"],
     font-size: 11px;
   }
 }
+
+@keyframes link-left {
+  0% {
+    transform: translateX(-2.5px) scale(1);
+  }
+  50% {
+    transform: translateX(2px) scale(1.05);
+  }
+  100% {
+    transform: translateX(-2.5px) scale(1);
+  }
+}
+
+@keyframes link-right {
+  0% {
+    transform: translateX(2.5px) scale(1);
+  }
+  50% {
+    transform: translateX(-2px) scale(1.05);
+  }
+  100% {
+    transform: translateX(2.5px) scale(1);
+  }
+}
+
+.animate-link-left {
+  animation: link-left 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+.animate-link-right {
+  animation: link-right 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
