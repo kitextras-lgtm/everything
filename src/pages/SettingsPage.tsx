@@ -143,21 +143,27 @@ export function SettingsPage() {
 
       <div className="space-y-7">
         <div>
-          <label className="block text-sm font-medium mb-3" style={{ color: '#94A3B8' }}>Profile </label>
-          <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-md">
-              <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <label className="block text-sm font-medium mb-3" style={{ color: '#94A3B8' }}>Profile</label>
+          <div className="flex items-center gap-6 mb-4">
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-md">
+              <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
-            <button
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:brightness-110 shadow-sm"
-              style={{ backgroundColor: '#0f0f13', color: '#F8FAFC' }}
-            >
-              <Camera className="w-4 h-4" />
-              Replace picture
-            </button>
+            <div>
+              <h3 className="text-3xl font-bold mb-2" style={{ color: '#F8FAFC' }}>
+                {formData.firstName} {formData.lastName}
+              </h3>
+              <p className="text-base" style={{ color: '#94A3B8' }}>{formData.email}</p>
+            </div>
           </div>
+          <button
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:brightness-110 shadow-sm"
+            style={{ backgroundColor: '#0f0f13', color: '#F8FAFC' }}
+          >
+            <Camera className="w-4 h-4" />
+            Replace picture
+          </button>
         </div>
 
         <div className="grid grid-cols-2 gap-5">
