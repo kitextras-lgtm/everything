@@ -141,7 +141,11 @@ export function CreatorDashboard() {
                     <p className="text-sm" style={{ color: '#64748B' }}>judestcks@gmail.com</p>
                   </div>
 
-                  <button className="w-full py-3 px-4 rounded-xl text-sm font-bold mb-3 transition-all duration-200 hover:brightness-110" style={{ backgroundColor: '#111111', color: '#F8FAFC' }}>
+                  <button
+                    onClick={() => navigate('/settings')}
+                    className="w-full py-3 px-4 rounded-xl text-sm font-bold mb-3 transition-all duration-200 hover:brightness-110"
+                    style={{ backgroundColor: '#111111', color: '#F8FAFC' }}
+                  >
                     Settings
                   </button>
 
