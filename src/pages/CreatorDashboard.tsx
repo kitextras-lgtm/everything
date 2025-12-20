@@ -754,7 +754,7 @@ export function CreatorDashboard() {
                 </div>
               </aside>
 
-              <div className="flex-1 space-y-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 12rem)' }}>
+              <div className="flex-1 space-y-6 overflow-y-auto pb-6" style={{ maxHeight: 'calc(100vh - 12rem)' }}>
                 {renderPersonalInfo()}
                 {renderConnectedAccounts()}
                 {renderPayoutMethods()}
