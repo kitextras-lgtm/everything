@@ -351,7 +351,7 @@ export function CreatorDashboard() {
           </div>
         </div>
 
-        <div className="pt-3">
+        <div>
           <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Email</label>
           <input
             type="email"
