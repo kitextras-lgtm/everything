@@ -53,8 +53,8 @@ export function CreatorDashboard() {
             >
               <div className="home-icon-wrapper">
                 <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="14" y="18" width="20" height="24" rx="2" stroke="white" strokeWidth="4" fill="none"/>
-                  <path d="M8 20L24 8L40 20" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                  <rect x="14" y="18" width="20" height="24" rx="2" stroke="white" strokeWidth="2.5" fill="none"/>
+                  <path d="M8 20L24 8L40 20" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                   <path className="light-beam" d="M19 42V28C19 27.4477 19.4477 27 20 27H28C28.5523 27 29 27.4477 29 28V42" fill="white"/>
                   <ellipse className="glow-ellipse" cx="24" cy="35" rx="6" ry="8" fill="white"/>
                 </svg>
@@ -69,8 +69,8 @@ export function CreatorDashboard() {
             >
               <div className="messages-icon-wrapper">
                 <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path className="back-bubble" d="M32 12H18C14.6863 12 12 14.6863 12 18V26C12 29.3137 14.6863 32 18 32H20L24 36L28 32H32C35.3137 32 38 29.3137 38 26V18C38 14.6863 35.3137 12 32 12Z" stroke="white" strokeWidth="4" fill="none"/>
-                  <path className="front-bubble" d="M30 20H16C13.2386 20 11 22.2386 11 25V31C11 33.7614 13.2386 36 16 36H18L21 40L24 36H30C32.7614 36 35 33.7614 35 31V25C35 22.2386 32.7614 20 30 20Z" stroke="white" strokeWidth="4" fill="rgba(0,0,0,0.8)"/>
+                  <path className="back-bubble" d="M32 12H18C14.6863 12 12 14.6863 12 18V26C12 29.3137 14.6863 32 18 32H20L24 36L28 32H32C35.3137 32 38 29.3137 38 26V18C38 14.6863 35.3137 12 32 12Z" stroke="white" strokeWidth="2.5" fill="none"/>
+                  <path className="front-bubble" d="M30 20H16C13.2386 20 11 22.2386 11 25V31C11 33.7614 13.2386 36 16 36H18L21 40L24 36H30C32.7614 36 35 33.7614 35 31V25C35 22.2386 32.7614 20 30 20Z" stroke="white" strokeWidth="2.5" fill="rgba(0,0,0,0.8)"/>
                   <g className="dots">
                     <circle cx="17" cy="28" r="1.5" fill="white"/>
                     <circle cx="23" cy="28" r="1.5" fill="white"/>
@@ -87,15 +87,15 @@ export function CreatorDashboard() {
             >
               <div className="icon-container">
                 <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
-                  <ellipse cx="24" cy="28" rx="14" ry="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                  <ellipse cx="36" cy="28" rx="4" ry="3" stroke="currentColor" strokeWidth="4" fill="none"/>
+                  <ellipse cx="24" cy="28" rx="14" ry="10" stroke="currentColor" strokeWidth="2.5" fill="none"/>
+                  <ellipse cx="36" cy="28" rx="4" ry="3" stroke="currentColor" strokeWidth="2.5" fill="none"/>
                   <circle cx="35" cy="27" r="0.8" fill="currentColor"/>
                   <circle cx="37" cy="27" r="0.8" fill="currentColor"/>
-                  <path d="M16 20C16 20 14 16 18 14C22 12 24 16 24 18" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none"/>
-                  <path d="M16 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-                  <path d="M22 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-                  <path d="M26 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-                  <path d="M32 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
+                  <path d="M16 20C16 20 14 16 18 14C22 12 24 16 24 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+                  <path d="M16 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                  <path d="M22 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                  <path d="M26 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                  <path d="M32 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
                   <rect x="20" y="17" width="8" height="2" rx="1" fill="currentColor"/>
                   <circle cx="18" cy="25" r="1.5" fill="currentColor"/>
                 </svg>
@@ -178,8 +178,8 @@ export function CreatorDashboard() {
           >
             <div className="home-icon-wrapper">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="14" y="18" width="20" height="24" rx="2" stroke="white" strokeWidth="4" fill="none"/>
-                <path d="M8 20L24 8L40 20" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                <rect x="14" y="18" width="20" height="24" rx="2" stroke="white" strokeWidth="2.5" fill="none"/>
+                <path d="M8 20L24 8L40 20" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <path className="light-beam" d="M19 42V28C19 27.4477 19.4477 27 20 27H28C28.5523 27 29 27.4477 29 28V42" fill="white"/>
                 <ellipse className="glow-ellipse" cx="24" cy="35" rx="6" ry="8" fill="white"/>
               </svg>
@@ -194,8 +194,8 @@ export function CreatorDashboard() {
           >
             <div className="messages-icon-wrapper">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path className="back-bubble" d="M32 12H18C14.6863 12 12 14.6863 12 18V26C12 29.3137 14.6863 32 18 32H20L24 36L28 32H32C35.3137 32 38 29.3137 38 26V18C38 14.6863 35.3137 12 32 12Z" stroke="white" strokeWidth="4" fill="none"/>
-                <path className="front-bubble" d="M30 20H16C13.2386 20 11 22.2386 11 25V31C11 33.7614 13.2386 36 16 36H18L21 40L24 36H30C32.7614 36 35 33.7614 35 31V25C35 22.2386 32.7614 20 30 20Z" stroke="white" strokeWidth="4" fill="rgba(0,0,0,0.8)"/>
+                <path className="back-bubble" d="M32 12H18C14.6863 12 12 14.6863 12 18V26C12 29.3137 14.6863 32 18 32H20L24 36L28 32H32C35.3137 32 38 29.3137 38 26V18C38 14.6863 35.3137 12 32 12Z" stroke="white" strokeWidth="2.5" fill="none"/>
+                <path className="front-bubble" d="M30 20H16C13.2386 20 11 22.2386 11 25V31C11 33.7614 13.2386 36 16 36H18L21 40L24 36H30C32.7614 36 35 33.7614 35 31V25C35 22.2386 32.7614 20 30 20Z" stroke="white" strokeWidth="2.5" fill="rgba(0,0,0,0.8)"/>
                 <g className="dots">
                   <circle cx="17" cy="28" r="1.5" fill="white"/>
                   <circle cx="23" cy="28" r="1.5" fill="white"/>
@@ -212,15 +212,15 @@ export function CreatorDashboard() {
           >
             <div className="icon-container">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
-                <ellipse cx="24" cy="28" rx="14" ry="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                <ellipse cx="36" cy="28" rx="4" ry="3" stroke="currentColor" strokeWidth="4" fill="none"/>
+                <ellipse cx="24" cy="28" rx="14" ry="10" stroke="currentColor" strokeWidth="2.5" fill="none"/>
+                <ellipse cx="36" cy="28" rx="4" ry="3" stroke="currentColor" strokeWidth="2.5" fill="none"/>
                 <circle cx="35" cy="27" r="0.8" fill="currentColor"/>
                 <circle cx="37" cy="27" r="0.8" fill="currentColor"/>
-                <path d="M16 20C16 20 14 16 18 14C22 12 24 16 24 18" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none"/>
-                <path d="M16 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-                <path d="M22 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-                <path d="M26 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-                <path d="M32 36V40" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
+                <path d="M16 20C16 20 14 16 18 14C22 12 24 16 24 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+                <path d="M16 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M22 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M26 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M32 36V40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
                 <rect x="20" y="17" width="8" height="2" rx="1" fill="currentColor"/>
                 <circle cx="18" cy="25" r="1.5" fill="currentColor"/>
               </svg>
