@@ -124,34 +124,32 @@ export function ReferralSection() {
           <h3 className="text-lg sm:text-xl font-bold" style={{ color: '#F8FAFC' }}>Your Code</h3>
         </div>
 
-        <div className="mb-5">
-          <div className="rounded-lg p-4 mb-3" style={{ backgroundColor: '#111111' }}>
-            <div className="text-center">
-              <div className="text-xs font-medium mb-2" style={{ color: '#64748B' }}>
-                YOUR REFERRAL CODE
-              </div>
-              <div className="text-2xl sm:text-3xl font-bold tracking-wider mb-3" style={{ color: '#F8FAFC' }}>
-                {referralData?.code || 'LOADING...'}
-              </div>
-              <button
-                onClick={handleCopy}
-                disabled={!referralData}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ backgroundColor: '#F8FAFC', color: '#111111' }}
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    <span>Copy Code</span>
-                  </>
-                )}
-              </button>
+        <div className="rounded-lg p-4 mb-5" style={{ backgroundColor: '#111111' }}>
+          <div className="text-center">
+            <div className="text-xs font-medium mb-2" style={{ color: '#64748B' }}>
+              YOUR REFERRAL CODE
             </div>
+            <div className="text-2xl sm:text-3xl font-bold tracking-wider mb-3" style={{ color: '#F8FAFC' }}>
+              {referralData?.code || 'LOADING...'}
+            </div>
+            <button
+              onClick={handleCopy}
+              disabled={!referralData}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ backgroundColor: '#F8FAFC', color: '#111111' }}
+            >
+              {copied ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-4 h-4" />
+                  <span>Copy Code</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
 
@@ -194,8 +192,8 @@ export function ReferralSection() {
           </div>
         ) : (
           <>
-            <div className="mb-5">
-              <div className="rounded-lg p-4 mb-3" style={{ backgroundColor: '#111111' }}>
+            <div className="rounded-lg p-4 mb-5" style={{ backgroundColor: '#111111' }}>
+              <div className="text-center">
                 <label className="block text-xs font-medium mb-2" style={{ color: '#64748B' }}>
                   REFERRAL CODE
                 </label>
@@ -205,13 +203,13 @@ export function ReferralSection() {
                   onChange={(e) => setInputCode(e.target.value.toUpperCase())}
                   placeholder="Enter code..."
                   maxLength={8}
-                  className="w-full px-4 py-2.5 rounded-lg text-base font-bold tracking-wider text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 mb-3"
+                  className="w-full px-4 py-2.5 rounded-lg text-2xl sm:text-3xl font-bold tracking-wider text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 mb-3"
                   style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
                 />
                 <button
                   onClick={handleApplyCode}
                   disabled={!inputCode.trim() || applying}
-                  className="w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{ backgroundColor: '#F8FAFC', color: '#111111' }}
                 >
                   {applying ? 'Applying...' : 'Apply Code'}
@@ -220,7 +218,7 @@ export function ReferralSection() {
 
               {message && (
                 <div
-                  className="rounded-lg p-3 text-sm text-center"
+                  className="rounded-lg p-3 text-sm text-center mt-3"
                   style={{
                     backgroundColor: message.type === 'success' ? '#10B98120' : '#EF444420',
                     color: message.type === 'success' ? '#10B981' : '#EF4444',
@@ -236,17 +234,13 @@ export function ReferralSection() {
                 Benefits
               </div>
               <div className="space-y-2">
-                <div className="flex items-start gap-2 py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
-                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
-                  <span className="text-sm" style={{ color: '#94A3B8' }}>
-                    Get 10% bonus on your first campaign
-                  </span>
+                <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+                  <span className="text-sm" style={{ color: '#94A3B8' }}>10% first campaign bonus</span>
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
                 </div>
-                <div className="flex items-start gap-2 py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
-                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
-                  <span className="text-sm" style={{ color: '#94A3B8' }}>
-                    Support creators in the community
-                  </span>
+                <div className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
+                  <span className="text-sm" style={{ color: '#94A3B8' }}>Support the community</span>
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
                 </div>
               </div>
             </div>
