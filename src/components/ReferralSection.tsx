@@ -35,19 +35,25 @@ export function ReferralSection() {
       if (existingCode) {
         setReferralData(existingCode);
       } else {
-        const { data: newCodeData } = await supabase.rpc('generate_referral_code');
+        const { data: userProfile } = await supabase
+          .from('user_profiles')
+          .select('username')
+          .eq('user_id', user.id)
+          .maybeSingle();
 
-        if (newCodeData) {
+        const username = userProfile?.username;
+
+        if (username) {
           const { error: insertError } = await supabase
             .from('referral_codes')
             .insert({
               user_id: user.id,
-              code: newCodeData,
+              code: username.toUpperCase(),
             });
 
           if (!insertError) {
             setReferralData({
-              code: newCodeData,
+              code: username.toUpperCase(),
               total_uses: 0,
               total_earnings: 0,
             });
