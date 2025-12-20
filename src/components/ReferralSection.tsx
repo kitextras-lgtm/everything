@@ -248,12 +248,6 @@ export function ReferralSection() {
                     Support creators in the community
                   </span>
                 </div>
-                <div className="flex items-start gap-2 py-2 px-3 rounded-lg" style={{ backgroundColor: '#111111' }}>
-                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#10B981' }} />
-                  <span className="text-sm" style={{ color: '#94A3B8' }}>
-                    Unlock exclusive features
-                  </span>
-                </div>
               </div>
             </div>
           </>
