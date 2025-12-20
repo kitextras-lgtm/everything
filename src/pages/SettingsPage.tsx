@@ -363,7 +363,7 @@ export function SettingsPage() {
         </div>
       </header>
 
-      <div className="pt-24 pb-8">
+      <div className="pt-32 pb-8">
         <div className="max-w-5xl mx-auto px-8">
           <div className="flex items-center gap-6 mb-10">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-lg">
