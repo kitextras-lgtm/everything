@@ -124,13 +124,15 @@ export function ReferralSection() {
           <h3 className="text-lg sm:text-xl font-bold" style={{ color: '#F8FAFC' }}>Your Code</h3>
         </div>
 
-        <div className="rounded-lg p-4 mb-5 min-h-[160px] flex flex-col" style={{ backgroundColor: '#111111' }}>
-          <div className="text-center flex-1 flex flex-col">
+        <div className="rounded-lg p-4 mb-5" style={{ backgroundColor: '#111111' }}>
+          <div className="text-center">
             <div className="text-xs font-medium mb-2" style={{ color: '#64748B' }}>
               YOUR REFERRAL CODE
             </div>
-            <div className="text-2xl sm:text-3xl font-bold tracking-wider mb-3 flex-1 flex items-center justify-center" style={{ color: '#F8FAFC' }}>
-              {referralData?.code || 'LOADING...'}
+            <div className="h-[60px] flex items-center justify-center mb-3">
+              <div className="text-2xl sm:text-3xl font-bold tracking-wider" style={{ color: '#F8FAFC' }}>
+                {referralData?.code || 'LOADING...'}
+              </div>
             </div>
             <button
               onClick={handleCopy}
@@ -192,12 +194,12 @@ export function ReferralSection() {
           </div>
         ) : (
           <>
-            <div className="rounded-lg p-4 mb-5 min-h-[160px] flex flex-col" style={{ backgroundColor: '#111111' }}>
-              <div className="text-center flex-1 flex flex-col">
+            <div className="rounded-lg p-4 mb-5" style={{ backgroundColor: '#111111' }}>
+              <div className="text-center">
                 <label className="block text-xs font-medium mb-2" style={{ color: '#64748B' }}>
                   REFERRAL CODE
                 </label>
-                <div className="flex-1 flex items-center justify-center mb-3">
+                <div className="h-[60px] flex items-center justify-center mb-3">
                   <input
                     type="text"
                     value={inputCode}
