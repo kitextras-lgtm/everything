@@ -549,7 +549,7 @@ export function CreatorDashboard() {
 
             {isDropdownOpen && (
               <div
-                className="absolute right-0 mt-2 w-80 rounded-2xl shadow-2xl overflow-hidden z-50"
+                className="absolute right-0 mt-2 w-80 rounded-2xl shadow-2xl overflow-hidden z-50 animate-fade-in-down"
                 style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
               >
                 <div className="p-6">
@@ -673,7 +673,7 @@ export function CreatorDashboard() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-12 pt-20 sm:pt-24">
         {activeSection === 'messages' && (
-          <div className="flex items-center justify-center min-h-[calc(100vh-250px)] sm:min-h-[calc(100vh-200px)]">
+          <div className="flex items-center justify-center min-h-[calc(100vh-250px)] sm:min-h-[calc(100vh-200px)] animate-fade-in">
             <div className="text-center px-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center" style={{ backgroundColor: '#1a1a1e' }}>
                 <svg className="w-8 h-8 sm:w-10 sm:h-10" style={{ color: '#64748B' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -687,7 +687,7 @@ export function CreatorDashboard() {
         )}
 
         {activeSection === 'earnings' && (
-          <div className="flex items-center justify-center min-h-[calc(100vh-250px)] sm:min-h-[calc(100vh-200px)]">
+          <div className="flex items-center justify-center min-h-[calc(100vh-250px)] sm:min-h-[calc(100vh-200px)] animate-fade-in">
             <div className="text-center px-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center" style={{ backgroundColor: '#1a1a1e' }}>
                 <svg className="w-8 h-8 sm:w-10 sm:h-10" style={{ color: '#64748B' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -701,7 +701,7 @@ export function CreatorDashboard() {
         )}
 
         {activeSection === 'settings' && (
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-5xl mx-auto animate-fade-in">
             <div className="flex gap-6">
               <aside className="w-72 flex-shrink-0">
                 <div className="rounded-2xl p-1 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
@@ -769,7 +769,7 @@ export function CreatorDashboard() {
         )}
 
         {activeSection === 'home' && (
-          <>
+          <div className="animate-fade-in">
         <section className="mb-10 sm:mb-20">
           <div className="mb-5 sm:mb-7">
             <h2 className="text-2xl sm:text-3xl font-bold mb-1.5 sm:mb-2 tracking-tight" style={{ color: '#F8FAFC' }}>Active campaigns</h2>
@@ -862,7 +862,7 @@ export function CreatorDashboard() {
 
           <ReferralSection />
         </section>
-          </>
+          </div>
         )}
       </main>
     </div>
