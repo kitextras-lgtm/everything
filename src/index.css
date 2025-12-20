@@ -190,7 +190,7 @@ spline-viewer div[style*="position: fixed"],
 }
 
 .home-icon .light-beam {
-  opacity: 0;
+  opacity: 0.3;
   transition: all 0.3s ease;
 }
 
@@ -217,15 +217,15 @@ spline-viewer div[style*="position: fixed"],
 }
 
 .home-icon:hover .light-beam {
-  opacity: 0;
+  opacity: 1;
 }
 
 .home-icon:hover .glow-ellipse {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .home-icon:hover .outer-glow {
-  background: rgba(255, 255, 255, 0);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .home-icon:hover .label {
@@ -233,15 +233,15 @@ spline-viewer div[style*="position: fixed"],
 }
 
 .home-icon:active .light-beam {
-  opacity: 0;
+  opacity: 1;
 }
 
 .home-icon:active .glow-ellipse {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .home-icon:active .outer-glow {
-  background: rgba(255, 255, 255, 0);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .home-icon:active .label {
