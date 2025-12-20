@@ -192,18 +192,21 @@ export function SettingsPage() {
 
           <div>
             <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Last name</label>
-            <input
-              type="text"
-              value={formData.lastName}
-              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-              disabled={!isEditing}
-              className="w-full h-12 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all"
-              style={{
-                color: '#F8FAFC',
-                background: '#0f0f13',
-                border: '1px solid rgba(75, 85, 99, 0.2)',
-              }}
-            />
+            <div className="flex items-center gap-3">
+              <input
+                type="text"
+                value={formData.lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                disabled={!isEditing}
+                className="flex-1 h-12 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all"
+                style={{
+                  color: '#F8FAFC',
+                  background: '#0f0f13',
+                  border: '1px solid rgba(75, 85, 99, 0.2)',
+                }}
+              />
+              <div className="w-10 h-10"></div>
+            </div>
           </div>
         </div>
 
