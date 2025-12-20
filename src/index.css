@@ -104,15 +104,10 @@
 }
 
 html, body {
-  scroll-behavior: smooth;
   background-color: #000000;
   font-feature-settings: "kern" 1;
   font-kerning: normal;
   font-variant-ligatures: common-ligatures;
-}
-
-* {
-  scroll-behavior: smooth;
 }
 
 .hero-heading {
@@ -140,7 +135,7 @@ html, body {
 
 @media (prefers-reduced-motion: no-preference) {
   html {
-    scroll-behavior: smooth;
+    scroll-snap-type: none;
   }
 }
 
