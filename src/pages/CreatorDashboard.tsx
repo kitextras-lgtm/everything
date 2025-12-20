@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Video, Instagram, Music2, ArrowUpRight, LogOut, Camera, MapPin, Globe } from 'lucide-react';
+import { Video, Instagram, Music2, ArrowUpRight, LogOut, MapPin, Globe } from 'lucide-react';
 import { BetaBadge } from '../components/BetaBadge';
 import { SocialLinksForm } from '../components/SocialLinksForm';
 import { ReferralSection } from '../components/ReferralSection';
@@ -104,6 +104,7 @@ export function CreatorDashboard() {
     email: ''
   });
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -139,6 +140,18 @@ export function CreatorDashboard() {
     navigate('/');
   };
 
+  const handleProfilePictureClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Handle file upload here
+      console.log('Selected file:', file);
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -161,21 +174,29 @@ export function CreatorDashboard() {
 
       <div className="space-y-7">
         <div>
-          <label className="block text-sm font-medium mb-3" style={{ color: '#94A3B8' }}>Profile picture</label>
           <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-md">
+            <div
+              onClick={handleProfilePictureClick}
+              className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-md cursor-pointer hover:brightness-110 transition-all duration-200"
+            >
               <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
-            <button
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:brightness-110 shadow-sm"
-              style={{ backgroundColor: '#0f0f13', color: '#F8FAFC' }}
-            >
-              <Camera className="w-4 h-4" />
-              Replace picture
-            </button>
+            <div>
+              <h3 className="text-xl font-semibold mb-1" style={{ color: '#F8FAFC' }}>
+                {formData.firstName} {formData.lastName}
+              </h3>
+              <p className="text-sm" style={{ color: '#94A3B8' }}>{formData.email}</p>
+            </div>
           </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-5">
