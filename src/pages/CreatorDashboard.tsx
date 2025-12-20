@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Video, Instagram, Music2, ArrowUpRight, LogOut, MapPin, Globe } from 'lucide-react';
+import { Video, Instagram, Music2, ArrowUpRight, LogOut, MapPin, Globe, Plus } from 'lucide-react';
 import { BetaBadge } from '../components/BetaBadge';
 import { SocialLinksForm } from '../components/SocialLinksForm';
 import { ReferralSection } from '../components/ReferralSection';
 import { DoorTransition } from '../components/DoorTransition';
 import { supabase } from '../lib/supabase';
 
-type SettingsSection = 'personal' | 'accounts' | 'payout' | 'notifications' | 'close';
+type SettingsSection = 'personal' | 'accounts' | 'payout' | 'notifications';
 
 const COUNTRIES = [
   'United States of America',
@@ -105,6 +105,10 @@ export function CreatorDashboard() {
   });
   const dropdownRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const personalRef = useRef<HTMLDivElement>(null);
+  const accountsRef = useRef<HTMLDivElement>(null);
+  const payoutRef = useRef<HTMLDivElement>(null);
+  const notificationsRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -152,6 +156,17 @@ export function CreatorDashboard() {
     }
   };
 
+  const scrollToSection = (section: SettingsSection) => {
+    setSettingsSection(section);
+    const refs = {
+      personal: personalRef,
+      accounts: accountsRef,
+      payout: payoutRef,
+      notifications: notificationsRef
+    };
+    refs[section]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -169,7 +184,7 @@ export function CreatorDashboard() {
   }, [isDropdownOpen]);
 
   const renderPersonalInfo = () => (
-    <div>
+    <div ref={personalRef} className="scroll-mt-6">
       <h2 className="text-2xl font-bold mb-8" style={{ color: '#F8FAFC' }}>Personal info</h2>
 
       <div className="space-y-7">
@@ -373,11 +388,68 @@ export function CreatorDashboard() {
     </div>
   );
 
-  const renderPlaceholder = (title: string, description: string) => (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="text-center">
-        <h3 className="text-xl font-bold mb-2" style={{ color: '#F8FAFC' }}>{title}</h3>
-        <p className="text-sm" style={{ color: '#94A3B8' }}>{description}</p>
+  const renderConnectedAccounts = () => (
+    <div ref={accountsRef} className="scroll-mt-6 pt-12">
+      <h2 className="text-2xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Connected accounts (0)</h2>
+      <p className="text-sm mb-6" style={{ color: '#94A3B8' }}>
+        Link the social media accounts where you post content.<br />
+        An account must be connected to submit clips.
+      </p>
+
+      <button className="flex items-center gap-3 px-5 py-4 rounded-xl text-sm font-medium transition-all duration-200 hover:brightness-110" style={{ backgroundColor: '#0f0f13', color: '#94A3B8' }}>
+        <Plus className="w-5 h-5" />
+        Connect an account
+      </button>
+    </div>
+  );
+
+  const renderPayoutMethods = () => (
+    <div ref={payoutRef} className="scroll-mt-6 pt-12">
+      <h2 className="text-2xl font-bold mb-2" style={{ color: '#F8FAFC' }}>Payout methods</h2>
+      <p className="text-sm mb-3" style={{ color: '#94A3B8' }}>
+        Link an account to withdraw funds. Depending on your location, you can connect either a <span className="font-semibold" style={{ color: '#F8FAFC' }}>Stripe</span> or <span className="font-semibold" style={{ color: '#F8FAFC' }}>PayPal</span> account.
+      </p>
+      <p className="text-sm mb-6" style={{ color: '#94A3B8' }}>
+        You can choose a preferred method when you cash out.
+      </p>
+
+      <button className="flex items-center gap-3 px-5 py-4 rounded-xl text-sm font-medium transition-all duration-200 hover:brightness-110" style={{ backgroundColor: '#0f0f13', color: '#94A3B8' }}>
+        <Plus className="w-5 h-5" />
+        Connect an account
+      </button>
+    </div>
+  );
+
+  const renderNotifications = () => (
+    <div ref={notificationsRef} className="scroll-mt-6 pt-12">
+      <h2 className="text-2xl font-bold mb-8" style={{ color: '#F8FAFC' }}>Notifications</h2>
+
+      <div className="space-y-8">
+        <div>
+          <h3 className="text-lg font-semibold mb-6" style={{ color: '#F8FAFC' }}>Email</h3>
+
+          <div className="space-y-6">
+            <div className="flex items-center justify-between pb-6 border-b" style={{ borderColor: '#0f0f13' }}>
+              <div>
+                <h4 className="text-base font-semibold mb-1" style={{ color: '#F8FAFC' }}>New campaigns</h4>
+                <p className="text-sm" style={{ color: '#94A3B8' }}>Notify me when new clipping campaigns launch</p>
+              </div>
+              <button className="w-12 h-7 rounded-full transition-colors duration-200 flex items-center px-0.5" style={{ backgroundColor: '#3B82F6' }}>
+                <div className="w-6 h-6 rounded-full bg-white shadow-sm ml-auto"></div>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="text-base font-semibold mb-1" style={{ color: '#F8FAFC' }}>Campaign updates</h4>
+                <p className="text-sm" style={{ color: '#94A3B8' }}>Send me status updates for campaigns I've joined</p>
+              </div>
+              <button className="w-12 h-7 rounded-full transition-colors duration-200 flex items-center px-0.5" style={{ backgroundColor: '#3B82F6' }}>
+                <div className="w-6 h-6 rounded-full bg-white shadow-sm ml-auto"></div>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -631,7 +703,7 @@ export function CreatorDashboard() {
                 <div className="rounded-2xl p-1 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
                   <nav className="space-y-1 p-2">
                     <button
-                      onClick={() => setSettingsSection('personal')}
+                      onClick={() => scrollToSection('personal')}
                       className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
                         settingsSection === 'personal' ? 'shadow-md' : 'hover:brightness-105'
                       }`}
@@ -643,7 +715,7 @@ export function CreatorDashboard() {
                       Personal info
                     </button>
                     <button
-                      onClick={() => setSettingsSection('accounts')}
+                      onClick={() => scrollToSection('accounts')}
                       className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
                         settingsSection === 'accounts' ? 'shadow-md' : 'hover:brightness-105'
                       }`}
@@ -655,7 +727,7 @@ export function CreatorDashboard() {
                       Connected accounts
                     </button>
                     <button
-                      onClick={() => setSettingsSection('payout')}
+                      onClick={() => scrollToSection('payout')}
                       className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
                         settingsSection === 'payout' ? 'shadow-md' : 'hover:brightness-105'
                       }`}
@@ -667,7 +739,7 @@ export function CreatorDashboard() {
                       Payout methods
                     </button>
                     <button
-                      onClick={() => setSettingsSection('notifications')}
+                      onClick={() => scrollToSection('notifications')}
                       className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
                         settingsSection === 'notifications' ? 'shadow-md' : 'hover:brightness-105'
                       }`}
@@ -678,28 +750,15 @@ export function CreatorDashboard() {
                     >
                       Notifications
                     </button>
-                    <button
-                      onClick={() => setSettingsSection('close')}
-                      className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                        settingsSection === 'close' ? 'shadow-md' : 'hover:brightness-105'
-                      }`}
-                      style={{
-                        backgroundColor: settingsSection === 'close' ? '#0f0f13' : 'transparent',
-                        color: '#F8FAFC'
-                      }}
-                    >
-                      Close account
-                    </button>
                   </nav>
                 </div>
               </aside>
 
-              <main className="flex-1 rounded-2xl p-8 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
-                {settingsSection === 'personal' && renderPersonalInfo()}
-                {settingsSection === 'accounts' && renderPlaceholder('Connected accounts', 'Manage your social media connections')}
-                {settingsSection === 'payout' && renderPlaceholder('Payout methods', 'Add your payout information')}
-                {settingsSection === 'notifications' && renderPlaceholder('Notifications', 'Manage your notification preferences')}
-                {settingsSection === 'close' && renderPlaceholder('Close account', 'Delete your account and data')}
+              <main className="flex-1 rounded-2xl p-8 shadow-xl overflow-y-auto" style={{ backgroundColor: '#1a1a1e', maxHeight: 'calc(100vh - 12rem)' }}>
+                {renderPersonalInfo()}
+                {renderConnectedAccounts()}
+                {renderPayoutMethods()}
+                {renderNotifications()}
               </main>
             </div>
           </div>
