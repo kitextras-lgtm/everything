@@ -1,0 +1,1 @@
+import{c as s}from"./supabase-CQ7nbafA.js";const I=s("https://crzbvkulldhlqjvsfqap.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyemJ2a3VsbGRobHFqdnNmcWFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxODEwMjQsImV4cCI6MjA4MTc1NzAyNH0.EN4xGClfcPEvaeK-xDBsKDZTVHvpLl0JAGvZQw_GN-I");export{I as s};
