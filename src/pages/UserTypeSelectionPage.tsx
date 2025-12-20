@@ -181,13 +181,13 @@ export function UserTypeSelectionPage() {
 
       switch (selectedType) {
         case 'artist':
-          navigate('/dashboard/artist');
+          navigate('/dashboard/artist', { state: { fromOnboarding: true } });
           break;
         case 'creator':
-          navigate('/dashboard/creator');
+          navigate('/dashboard/creator', { state: { fromOnboarding: true } });
           break;
         case 'business':
-          navigate('/dashboard/business');
+          navigate('/dashboard/business', { state: { fromOnboarding: true } });
           break;
         default:
           navigate('/');
@@ -198,13 +198,13 @@ export function UserTypeSelectionPage() {
 
       switch (selectedType) {
         case 'artist':
-          navigate('/dashboard/artist');
+          navigate('/dashboard/artist', { state: { fromOnboarding: true } });
           break;
         case 'creator':
-          navigate('/dashboard/creator');
+          navigate('/dashboard/creator', { state: { fromOnboarding: true } });
           break;
         case 'business':
-          navigate('/dashboard/business');
+          navigate('/dashboard/business', { state: { fromOnboarding: true } });
           break;
         default:
           navigate('/');

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { DoorTransition } from '../components/DoorTransition';
 
 export function ArtistDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     localStorage.setItem('currentDashboard', '/dashboard/artist');
@@ -17,7 +18,7 @@ export function ArtistDashboard() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <DoorTransition />
+      <DoorTransition showTransition={location.state?.fromOnboarding === true} />
       <nav className="border-b border-gray-800 bg-black/50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">

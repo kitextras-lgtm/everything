@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react"
 
-export function DoorTransition() {
+interface DoorTransitionProps {
+  showTransition?: boolean
+}
+
+export function DoorTransition({ showTransition = false }: DoorTransitionProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 500)
+    if (showTransition) {
+      const timer = setTimeout(() => {
+        setIsOpen(true)
+      }, 500)
 
-    return () => clearTimeout(timer)
-  }, [])
+      return () => clearTimeout(timer)
+    }
+  }, [showTransition])
+
+  if (!showTransition) {
+    return null
+  }
 
   return (
     <div className="fixed inset-0 pointer-events-none" style={{ perspective: "1500px", zIndex: 50 }}>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Video, Instagram, Music2, ArrowUpRight, LogOut } from 'lucide-react';
 import { BetaBadge } from '../components/BetaBadge';
 import { SocialLinksForm } from '../components/SocialLinksForm';
@@ -11,6 +11,7 @@ export function CreatorDashboard() {
   const [activeSection, setActiveSection] = useState('home');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     localStorage.setItem('currentDashboard', '/dashboard/creator');
@@ -39,7 +40,7 @@ export function CreatorDashboard() {
 
   return (
     <div className="min-h-screen text-white pb-20 md:pb-0" style={{ backgroundColor: '#111111' }}>
-      <DoorTransition />
+      <DoorTransition showTransition={location.state?.fromOnboarding === true} />
       <header className="fixed top-0 left-0 right-0 z-50 h-14 sm:h-16" style={{ backgroundColor: '#111111', borderBottom: '1px solid #1a1a1a' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-8 h-full flex items-center justify-between">
           <div className="flex items-center gap-1">
