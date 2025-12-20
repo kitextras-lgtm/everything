@@ -83,12 +83,15 @@ export const Hero = memo(() => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-transparent blur-3xl -z-10"></div>
 
           <h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mb-4 md:mb-6 text-center md:text-left"
+            className="hero-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mb-4 md:mb-6 text-center md:text-left"
             style={{
-              fontFamily: 'Fraunces, serif',
+              fontFamily: '"Fraunces", serif',
+              fontWeight: 400,
               lineHeight: '1.05',
               letterSpacing: '-0.02em',
-              willChange: 'transform, opacity'
+              willChange: 'transform, opacity',
+              margin: 0,
+              padding: 0
             }}
           >
             <span

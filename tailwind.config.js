@@ -2,7 +2,14 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        serif: ['"Fraunces"', 'serif'],
+      },
+    },
   },
   plugins: [],
+  corePlugins: {
+    preflight: true,
+  },
 };
