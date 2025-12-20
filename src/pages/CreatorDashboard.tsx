@@ -246,18 +246,31 @@ export function CreatorDashboard() {
 
           <div>
             <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Last name</label>
-            <input
-              type="text"
-              value={formData.lastName}
-              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-              disabled={!isEditing}
-              className="w-full h-12 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all"
-              style={{
-                color: '#F8FAFC',
-                background: '#0f0f13',
-                border: '1px solid rgba(75, 85, 99, 0.2)',
-              }}
-            />
+            <div className="flex items-center gap-3">
+              <input
+                type="text"
+                value={formData.lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                disabled={!isEditing}
+                className="flex-1 h-12 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all"
+                style={{
+                  color: '#F8FAFC',
+                  background: '#0f0f13',
+                  border: '1px solid rgba(75, 85, 99, 0.2)',
+                }}
+              />
+              {!isEditing && (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="p-2.5 hover:brightness-110 transition-all rounded-lg"
+                  style={{ color: '#64748B' }}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
