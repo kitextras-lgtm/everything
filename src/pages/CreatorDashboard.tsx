@@ -360,7 +360,7 @@ export function CreatorDashboard() {
         <section className="mb-8">
           <div className="mb-5 sm:mb-7">
             <h2 className="text-2xl sm:text-3xl font-bold mb-1.5 sm:mb-2 tracking-tight" style={{ color: '#F8FAFC' }}>Refferal Section</h2>
-            <p className="text-sm sm:text-base" style={{ color: '#94A3B8' }}>Your most viewed clips</p>
+            <p className="text-sm sm:text-base" style={{ color: '#94A3B8' }}>Support creators by using their code. Share yours to earn together./p>
           </div>
         </section>
           </>
