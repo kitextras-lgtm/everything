@@ -138,21 +138,21 @@ export function SettingsPage() {
   };
 
   const renderPersonalInfo = () => (
-    <div className="max-w-3xl">
+    <div>
       <h2 className="text-2xl font-bold mb-8" style={{ color: '#F8FAFC' }}>Personal info</h2>
 
-      <div className="space-y-8">
+      <div className="space-y-7">
         <div>
-          <label className="block text-sm mb-3" style={{ color: '#94A3B8' }}>Profile picture</label>
+          <label className="block text-sm font-medium mb-3" style={{ color: '#94A3B8' }}>Profile picture</label>
           <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-md">
               <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
             <button
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:brightness-110"
-              style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:brightness-110 shadow-sm"
+              style={{ backgroundColor: '#0f0f13', color: '#F8FAFC' }}
             >
               <Camera className="w-4 h-4" />
               Replace picture
@@ -160,26 +160,26 @@ export function SettingsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-5">
           <div>
-            <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>First name</label>
+            <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>First name</label>
             <div className="flex items-center gap-3">
               <input
                 type="text"
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                 disabled={!isEditing}
-                className="flex-1 h-11 px-4 rounded-lg text-sm focus:outline-none transition-all"
+                className="flex-1 h-12 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all"
                 style={{
                   color: '#F8FAFC',
-                  background: '#1a1a1e',
-                  border: '1px solid rgba(75, 85, 99, 0.3)',
+                  background: '#0f0f13',
+                  border: '1px solid rgba(75, 85, 99, 0.2)',
                 }}
               />
               {!isEditing && (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="p-2 hover:brightness-110 transition-all"
+                  className="p-2.5 hover:brightness-110 transition-all rounded-lg"
                   style={{ color: '#64748B' }}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,26 +191,26 @@ export function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Last name</label>
+            <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Last name</label>
             <input
               type="text"
               value={formData.lastName}
               onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
               disabled={!isEditing}
-              className="w-full h-11 px-4 rounded-lg text-sm focus:outline-none transition-all"
+              className="w-full h-12 px-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-white/10 transition-all"
               style={{
                 color: '#F8FAFC',
-                background: '#1a1a1e',
-                border: '1px solid rgba(75, 85, 99, 0.3)',
+                background: '#0f0f13',
+                border: '1px solid rgba(75, 85, 99, 0.2)',
               }}
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Username</label>
+          <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Username</label>
           <div className="flex items-center gap-3">
-            <div className="flex-1 flex items-center h-11 px-4 rounded-lg" style={{ background: '#1a1a1e', border: '1px solid rgba(75, 85, 99, 0.3)' }}>
+            <div className="flex-1 flex items-center h-12 px-4 rounded-xl focus-within:ring-2 focus-within:ring-white/10 transition-all" style={{ background: '#0f0f13', border: '1px solid rgba(75, 85, 99, 0.2)' }}>
               <span style={{ color: '#64748B' }}>@</span>
               <input
                 type="text"
@@ -224,7 +224,7 @@ export function SettingsPage() {
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="p-2 hover:brightness-110 transition-all"
+                className="p-2.5 hover:brightness-110 transition-all rounded-lg"
                 style={{ color: '#64748B' }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,10 +236,10 @@ export function SettingsPage() {
         </div>
 
         <div>
-          <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Location</label>
+          <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Location</label>
           <div className="flex items-center gap-3">
-            <div className="flex-1 flex items-center h-11 px-4 rounded-lg" style={{ background: '#1a1a1e', border: '1px solid rgba(75, 85, 99, 0.3)' }}>
-              <MapPin className="w-4 h-4 mr-2" style={{ color: '#64748B' }} />
+            <div className="flex-1 flex items-center h-12 px-4 rounded-xl focus-within:ring-2 focus-within:ring-white/10 transition-all" style={{ background: '#0f0f13', border: '1px solid rgba(75, 85, 99, 0.2)' }}>
+              <MapPin className="w-4 h-4 mr-2 flex-shrink-0" style={{ color: '#64748B' }} />
               <select
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
@@ -248,14 +248,14 @@ export function SettingsPage() {
                 style={{ color: '#F8FAFC' }}
               >
                 {COUNTRIES.map(country => (
-                  <option key={country} value={country}>{country}</option>
+                  <option key={country} value={country} style={{ background: '#0f0f13' }}>{country}</option>
                 ))}
               </select>
             </div>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="p-2 hover:brightness-110 transition-all"
+                className="p-2.5 hover:brightness-110 transition-all rounded-lg"
                 style={{ color: '#64748B' }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -267,10 +267,10 @@ export function SettingsPage() {
         </div>
 
         <div>
-          <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Languages you post in</label>
+          <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Languages you post in</label>
           <div className="flex items-center gap-3">
-            <div className="flex-1 flex items-center h-11 px-4 rounded-lg" style={{ background: '#1a1a1e', border: '1px solid rgba(75, 85, 99, 0.3)' }}>
-              <Globe className="w-4 h-4 mr-2" style={{ color: '#64748B' }} />
+            <div className="flex-1 flex items-center h-12 px-4 rounded-xl focus-within:ring-2 focus-within:ring-white/10 transition-all" style={{ background: '#0f0f13', border: '1px solid rgba(75, 85, 99, 0.2)' }}>
+              <Globe className="w-4 h-4 mr-2 flex-shrink-0" style={{ color: '#64748B' }} />
               <select
                 value={formData.language}
                 onChange={(e) => setFormData({ ...formData, language: e.target.value })}
@@ -279,14 +279,14 @@ export function SettingsPage() {
                 style={{ color: '#F8FAFC' }}
               >
                 {LANGUAGES.map(language => (
-                  <option key={language} value={language}>{language}</option>
+                  <option key={language} value={language} style={{ background: '#0f0f13' }}>{language}</option>
                 ))}
               </select>
             </div>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="p-2 hover:brightness-110 transition-all"
+                className="p-2.5 hover:brightness-110 transition-all rounded-lg"
                 style={{ color: '#64748B' }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -298,32 +298,32 @@ export function SettingsPage() {
         </div>
 
         <div>
-          <label className="block text-sm mb-2" style={{ color: '#94A3B8' }}>Email</label>
+          <label className="block text-sm font-medium mb-2.5" style={{ color: '#94A3B8' }}>Email</label>
           <input
             type="email"
             value={formData.email}
             disabled
-            className="w-full h-11 px-4 rounded-lg text-sm focus:outline-none opacity-60"
+            className="w-full h-12 px-4 rounded-xl text-sm focus:outline-none opacity-50"
             style={{
               color: '#F8FAFC',
-              background: '#1a1a1e',
-              border: '1px solid rgba(75, 85, 99, 0.3)',
+              background: '#0f0f13',
+              border: '1px solid rgba(75, 85, 99, 0.2)',
             }}
           />
         </div>
 
         {isEditing && (
-          <div className="flex gap-3">
+          <div className="flex gap-3 pt-4">
             <button
               onClick={() => setIsEditing(false)}
-              className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:brightness-110"
-              style={{ backgroundColor: '#1a1a1e', color: '#F8FAFC' }}
+              className="px-7 py-3 rounded-xl text-sm font-semibold transition-all duration-200 hover:brightness-110 shadow-sm"
+              style={{ backgroundColor: '#0f0f13', color: '#F8FAFC' }}
             >
               Cancel
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:brightness-110"
+              className="px-7 py-3 rounded-xl text-sm font-semibold transition-all duration-200 hover:brightness-110 shadow-sm"
               style={{ backgroundColor: '#E8E8E8', color: '#000000' }}
             >
               Save changes
@@ -363,97 +363,99 @@ export function SettingsPage() {
         </div>
       </header>
 
-      <div className="pt-16 flex">
-        <aside className="w-80 fixed left-0 h-[calc(100vh-4rem)] border-r" style={{ borderColor: '#1a1a1a', backgroundColor: '#111111' }}>
-          <div className="p-8">
-            <div className="mb-8">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10">
-                  <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold" style={{ color: '#F8FAFC' }}>
-                    {formData.firstName} {formData.lastName}
-                  </h2>
-                  <p className="text-sm" style={{ color: '#64748B' }}>{formData.email}</p>
-                </div>
-              </div>
+      <div className="pt-24 pb-8">
+        <div className="max-w-5xl mx-auto px-8">
+          <div className="flex items-center gap-6 mb-10">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-lg">
+              <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
             </div>
-
-            <nav className="space-y-2">
-              <button
-                onClick={() => setActiveSection('personal')}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeSection === 'personal' ? 'brightness-110' : 'hover:brightness-105'
-                }`}
-                style={{
-                  backgroundColor: activeSection === 'personal' ? '#1a1a1e' : 'transparent',
-                  color: '#F8FAFC'
-                }}
-              >
-                Personal info
-              </button>
-              <button
-                onClick={() => setActiveSection('accounts')}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeSection === 'accounts' ? 'brightness-110' : 'hover:brightness-105'
-                }`}
-                style={{
-                  backgroundColor: activeSection === 'accounts' ? '#1a1a1e' : 'transparent',
-                  color: '#F8FAFC'
-                }}
-              >
-                Connected accounts
-              </button>
-              <button
-                onClick={() => setActiveSection('payout')}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeSection === 'payout' ? 'brightness-110' : 'hover:brightness-105'
-                }`}
-                style={{
-                  backgroundColor: activeSection === 'payout' ? '#1a1a1e' : 'transparent',
-                  color: '#F8FAFC'
-                }}
-              >
-                Payout methods
-              </button>
-              <button
-                onClick={() => setActiveSection('notifications')}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeSection === 'notifications' ? 'brightness-110' : 'hover:brightness-105'
-                }`}
-                style={{
-                  backgroundColor: activeSection === 'notifications' ? '#1a1a1e' : 'transparent',
-                  color: '#F8FAFC'
-                }}
-              >
-                Notifications
-              </button>
-              <button
-                onClick={() => setActiveSection('close')}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeSection === 'close' ? 'brightness-110' : 'hover:brightness-105'
-                }`}
-                style={{
-                  backgroundColor: activeSection === 'close' ? '#1a1a1e' : 'transparent',
-                  color: '#F8FAFC'
-                }}
-              >
-                Close account
-              </button>
-            </nav>
+            <div>
+              <h1 className="text-3xl font-bold mb-1" style={{ color: '#F8FAFC' }}>
+                {formData.firstName} {formData.lastName}
+              </h1>
+              <p className="text-base" style={{ color: '#64748B' }}>{formData.email}</p>
+            </div>
           </div>
-        </aside>
 
-        <main className="ml-80 flex-1 p-12">
-          {activeSection === 'personal' && renderPersonalInfo()}
-          {activeSection === 'accounts' && renderPlaceholder('Connected accounts', 'Manage your social media connections')}
-          {activeSection === 'payout' && renderPlaceholder('Payout methods', 'Add your payout information')}
-          {activeSection === 'notifications' && renderPlaceholder('Notifications', 'Manage your notification preferences')}
-          {activeSection === 'close' && renderPlaceholder('Close account', 'Delete your account and data')}
-        </main>
+          <div className="flex gap-6">
+            <aside className="w-72 flex-shrink-0">
+              <div className="rounded-2xl p-1 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
+                <nav className="space-y-1 p-2">
+                  <button
+                    onClick={() => setActiveSection('personal')}
+                    className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                      activeSection === 'personal' ? 'shadow-md' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: activeSection === 'personal' ? '#0f0f13' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Personal info
+                  </button>
+                  <button
+                    onClick={() => setActiveSection('accounts')}
+                    className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                      activeSection === 'accounts' ? 'shadow-md' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: activeSection === 'accounts' ? '#0f0f13' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Connected accounts
+                  </button>
+                  <button
+                    onClick={() => setActiveSection('payout')}
+                    className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                      activeSection === 'payout' ? 'shadow-md' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: activeSection === 'payout' ? '#0f0f13' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Payout methods
+                  </button>
+                  <button
+                    onClick={() => setActiveSection('notifications')}
+                    className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                      activeSection === 'notifications' ? 'shadow-md' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: activeSection === 'notifications' ? '#0f0f13' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Notifications
+                  </button>
+                  <button
+                    onClick={() => setActiveSection('close')}
+                    className={`w-full text-left px-5 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                      activeSection === 'close' ? 'shadow-md' : 'hover:brightness-105'
+                    }`}
+                    style={{
+                      backgroundColor: activeSection === 'close' ? '#0f0f13' : 'transparent',
+                      color: '#F8FAFC'
+                    }}
+                  >
+                    Close account
+                  </button>
+                </nav>
+              </div>
+            </aside>
+
+            <main className="flex-1 rounded-2xl p-8 shadow-xl" style={{ backgroundColor: '#1a1a1e' }}>
+              {activeSection === 'personal' && renderPersonalInfo()}
+              {activeSection === 'accounts' && renderPlaceholder('Connected accounts', 'Manage your social media connections')}
+              {activeSection === 'payout' && renderPlaceholder('Payout methods', 'Add your payout information')}
+              {activeSection === 'notifications' && renderPlaceholder('Notifications', 'Manage your notification preferences')}
+              {activeSection === 'close' && renderPlaceholder('Close account', 'Delete your account and data')}
+            </main>
+          </div>
+        </div>
       </div>
     </div>
   );
