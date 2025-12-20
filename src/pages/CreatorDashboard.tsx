@@ -4,15 +4,26 @@ import { Video, Instagram, Music2, ArrowUpRight, LogOut } from 'lucide-react';
 import { BetaBadge } from '../components/BetaBadge';
 import { SocialLinksForm } from '../components/SocialLinksForm';
 import { DoorTransition } from '../components/DoorTransition';
+import { supabase } from '../lib/supabase';
 
 export function CreatorDashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [userEmail, setUserEmail] = useState<string>('');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('currentDashboard', '/dashboard/creator');
+
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.email) {
+        setUserEmail(user.email);
+      }
+    };
+
+    fetchUser();
   }, []);
 
   const handleLogout = () => {
@@ -136,7 +147,7 @@ export function CreatorDashboard() {
                       CREATOR
                     </div>
                     <h3 className="text-xl font-bold mb-0.5" style={{ color: '#F8FAFC' }}>Main</h3>
-                    <p className="text-sm" style={{ color: '#64748B' }}>judestcks@gmail.com</p>
+                    <p className="text-sm" style={{ color: '#64748B' }}>{userEmail || 'Loading...'}</p>
                   </div>
 
                   <button className="w-full py-3 px-4 rounded-xl text-sm font-bold mb-3 transition-all duration-200 hover:brightness-110" style={{ backgroundColor: '#111111', color: '#F8FAFC' }}>
