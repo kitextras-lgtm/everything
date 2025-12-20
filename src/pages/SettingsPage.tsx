@@ -143,7 +143,7 @@ export function SettingsPage() {
 
       <div className="space-y-7">
         <div>
-          <label className="block text-sm font-medium mb-3" style={{ color: '#94A3B8' }}>Profile picture</label>
+          <label className="block text-sm font-medium mb-3" style={{ color: '#94A3B8' }}>Profile </label>
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden border-2 border-white/10 shadow-md">
               <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
